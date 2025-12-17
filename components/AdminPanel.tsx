@@ -265,13 +265,13 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ links, setLinks, onBack, refres
       )}
 
       {/* Header */}
-      <div className="bg-gradient-to-r from-blue-50 via-purple-50 to-pink-50 border-b border-white/50 sticky top-0 z-20 backdrop-blur-md shadow-sm">
+      <div className="bg-gradient-to-r from-blue-700 via-blue-600 to-sky-500 border-b border-white/10 sticky top-0 z-20 backdrop-blur-md shadow-lg">
         <div className="max-w-7xl mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center gap-4">
           <div className="flex items-center gap-4 w-full md:w-auto">
-            <button onClick={onBack} className="p-2.5 bg-white hover:bg-slate-50 rounded-xl text-slate-600 shadow-sm border border-slate-100 transition-colors">
+            <button onClick={onBack} className="p-2.5 bg-white/10 hover:bg-white/20 rounded-xl text-white shadow-sm border border-white/20 transition-colors">
               <ArrowLeft size={20} />
             </button>
-            <h1 className="text-xl font-bold text-slate-800">จัดการข้อมูลลิงก์</h1>
+            <h1 className="text-xl font-bold text-white">จัดการข้อมูลลิงก์</h1>
           </div>
           
           <div className="flex items-center gap-3 w-full md:w-auto overflow-x-auto pb-2 md:pb-0">

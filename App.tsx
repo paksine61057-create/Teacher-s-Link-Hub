@@ -76,13 +76,13 @@ function App() {
     <div className="min-h-screen flex flex-col font-sans bg-slate-50">
       
       {/* Header */}
-      <header className="sticky top-0 z-50 bg-gradient-to-r from-blue-50 via-purple-50 to-pink-50 border-b border-white/50 shadow-sm backdrop-blur-md">
+      <header className="sticky top-0 z-50 bg-gradient-to-r from-blue-700 via-blue-600 to-sky-500 border-b border-white/10 shadow-lg backdrop-blur-md">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
             
             {/* Logo */}
             <div className="flex items-center gap-4 cursor-pointer group" onClick={() => {setSearchTerm(''); setActiveCategory('ทั้งหมด');}}>
-              <div className="bg-white p-1 rounded-xl shadow-md group-hover:scale-105 transition-transform duration-300 overflow-hidden border border-slate-100">
+              <div className="bg-white p-1 rounded-xl shadow-md group-hover:scale-105 transition-transform duration-300 overflow-hidden border border-white/20">
                 <img 
                   src="https://img5.pic.in.th/file/secure-sv1/5bc66fd0-c76e-41c4-87ed-46d11f4a36fa.png" 
                   alt="Logo" 
@@ -90,10 +90,10 @@ function App() {
                 />
               </div>
               <div>
-                <h1 className="text-lg md:text-xl font-bold text-slate-800 leading-tight tracking-tight">
+                <h1 className="text-lg md:text-xl font-bold text-white leading-tight tracking-tight drop-shadow-sm">
                   รวมลิงค์สำหรับคุณครูโรงเรียนประจักษ์ศิลปาคม
                 </h1>
-                <p className="text-sm text-indigo-600 font-medium">
+                <p className="text-sm text-blue-100 font-medium">
                   Teacher's Link Hub
                 </p>
               </div>
@@ -132,8 +132,8 @@ function App() {
                 className={`
                   px-5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 whitespace-nowrap shadow-sm border
                   ${activeCategory === cat 
-                    ? 'bg-indigo-600 text-white border-indigo-600 shadow-indigo-200 shadow-md transform -translate-y-0.5' 
-                    : 'bg-white text-slate-600 border-slate-200 hover:bg-indigo-50 hover:border-indigo-200 hover:text-indigo-600'}
+                    ? 'bg-blue-600 text-white border-blue-600 shadow-blue-200 shadow-md transform -translate-y-0.5' 
+                    : 'bg-white text-slate-600 border-slate-200 hover:bg-blue-50 hover:border-blue-200 hover:text-blue-600'}
                 `}
               >
                 {cat}
@@ -155,14 +155,14 @@ function App() {
               <h2 className="text-xl font-bold text-slate-700 flex items-center gap-2">
                 {activeCategory === 'ทั้งหมด' ? (
                   <>
-                    <div className="p-2 bg-white rounded-lg shadow-sm text-indigo-500">
+                    <div className="p-2 bg-white rounded-lg shadow-sm text-blue-500">
                       <LayoutGrid size={20} />
                     </div>
                     ลิงก์ทั้งหมด
                   </>
                 ) : (
                   <>
-                    <div className="p-2 bg-white rounded-lg shadow-sm text-indigo-500">
+                    <div className="p-2 bg-white rounded-lg shadow-sm text-blue-500">
                       <Layers size={20} />
                     </div>
                     หมวด: {activeCategory}
@@ -184,7 +184,7 @@ function App() {
             ) : (
               <div className="flex flex-col items-center justify-center py-20 text-center">
                 <div className="bg-white p-8 rounded-full mb-6 shadow-sm border border-slate-100">
-                  <Search size={48} className="text-indigo-200" />
+                  <Search size={48} className="text-blue-200" />
                 </div>
                 <h3 className="text-xl font-bold text-slate-700 mb-2">ไม่พบข้อมูลลิงก์</h3>
                 <p className="text-slate-500 max-w-xs mx-auto">
@@ -192,7 +192,7 @@ function App() {
                 </p>
                 <button 
                   onClick={() => {setSearchTerm(''); setActiveCategory('ทั้งหมด');}}
-                  className="mt-6 px-6 py-2 bg-indigo-50 text-indigo-600 hover:bg-indigo-100 rounded-lg font-semibold transition-colors"
+                  className="mt-6 px-6 py-2 bg-blue-50 text-blue-600 hover:bg-blue-100 rounded-lg font-semibold transition-colors"
                 >
                   ล้างคำค้นหา
                 </button>
@@ -215,7 +215,7 @@ function App() {
             <div className="flex items-center gap-4">
                <button 
                 onClick={() => setView('admin')}
-                className="flex items-center gap-2 px-4 py-2 rounded-lg text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 transition-colors border border-transparent hover:border-indigo-100"
+                className="flex items-center gap-2 px-4 py-2 rounded-lg text-slate-500 hover:text-blue-600 hover:bg-blue-50 transition-colors border border-transparent hover:border-blue-100"
               >
                 <Settings size={16} />
                 <span className="font-medium">สำหรับแอดมิน</span>
