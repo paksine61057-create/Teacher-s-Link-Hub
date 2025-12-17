@@ -5,20 +5,12 @@ import { PASTEL_PALETTE } from '../constants';
 
 interface LinkCardProps {
   item: LinkItem;
+  index: number;
 }
 
-const LinkCard: React.FC<LinkCardProps> = ({ item }) => {
-  // Generate a consistent random index based on the item ID or name
-  // This ensures the color stays the same for the same item
-  const getColorIndex = (id: string) => {
-    let hash = 0;
-    for (let i = 0; i < id.length; i++) {
-      hash = id.charCodeAt(i) + ((hash << 5) - hash);
-    }
-    return Math.abs(hash);
-  };
-
-  const themeIndex = getColorIndex(item.id) % PASTEL_PALETTE.length;
+const LinkCard: React.FC<LinkCardProps> = ({ item, index }) => {
+  // Use index to select color ensuring variety in the grid
+  const themeIndex = index % PASTEL_PALETTE.length;
   const theme = PASTEL_PALETTE[themeIndex];
 
   return (
