@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Lock, Plus, Trash2, Edit2, Save, X, ArrowLeft, LogOut, Layers, Loader2, ArrowUpDown, ArrowUp, ArrowDown, Check, Sparkles } from 'lucide-react';
+import { Lock, Plus, Trash2, Edit2, Save, X, ArrowLeft, LogOut, Layers, Loader2, ArrowUpDown, ArrowUp, ArrowDown, Check, Sparkles, Smile } from 'lucide-react';
 import { LinkItem } from '../types';
 import { CATEGORIES, GOOGLE_SCRIPT_URL } from '../constants';
 import { createLinkInSheet, updateLinkInSheet, deleteLinkInSheet, reorderLinksInSheet } from '../services/api';
@@ -21,6 +21,34 @@ const RECOMMENDED_AI_TOOLS = [
   { name: 'Quillbot', url: 'https://quillbot.com', description: 'เครื่องมือช่วยเกลาภาษาอังกฤษและตรวจสอบไวยากรณ์', category: '🤖 เครื่องมือ AI', icon: '✍️' }
 ];
 
+// ชุดไอคอนสำหรับให้เลือก
+const ICON_SETS = [
+  {
+    title: "ยอดนิยม",
+    icons: ["🔗", "⭐", "🔥", "📌", "📢", "🆕", "✅", "❌", "❤️", "💡"]
+  },
+  {
+    title: "การศึกษา",
+    icons: ["📚", "🎓", "🏫", "🎒", "📝", "✏️", "📏", "✂️", "🖍️", "📖", "👩‍🏫", "👨‍🏫"]
+  },
+  {
+    title: "เอกสาร/สำนักงาน",
+    icons: ["📄", "📊", "📈", "📉", "📁", "📂", "📅", "📋", "📎", "📥", "📤", "🖨️"]
+  },
+  {
+    title: "เทคโนโลยี/AI",
+    icons: ["💻", "🤖", "🧠", "📱", "🌐", "☁️", "💾", "🖱️", "⌨️", "🔌", "🔋", "📸"]
+  },
+  {
+    title: "วิชา/กิจกรรม",
+    icons: ["🔢", "🧪", "🧬", "🎨", "🎵", "⚽", "🏀", "🏊", "🌍", "🏰", "🕌", "🎎", "🇬🇧", "🇹🇭"]
+  },
+  {
+    title: "อื่นๆ",
+    icons: ["🏆", "🥇", "🎁", "🔔", "🛠️", "🚑", "🍽️", "🚌", "🏠", "💬", "🔍", "⚙️"]
+  }
+];
+
 const AdminPanel: React.FC<AdminPanelProps> = ({ links, setLinks, onBack, refreshData }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [password, setPassword] = useState('');
@@ -29,6 +57,9 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ links, setLinks, onBack, refres
   
   // Reorder Mode State
   const [isReorderMode, setIsReorderMode] = useState(false);
+
+  // Icon Picker State
+  const [showIconPicker, setShowIconPicker] = useState(false);
 
   // Form State
   const [editingId, setEditingId] = useState<string | null>(null);
@@ -63,6 +94,7 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ links, setLinks, onBack, refres
       description: ''
     });
     setEditingId(null);
+    setShowIconPicker(false);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -394,15 +426,54 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ links, setLinks, onBack, refres
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-semibold text-slate-700 mb-1.5">ไอคอน (Emoji)</label>
-                  <input
-                    type="text"
-                    value={formData.icon || ''}
-                    onChange={(e) => setFormData({...formData, icon: e.target.value})}
-                    className="w-full rounded-xl border border-slate-200 p-3 focus:ring-4 focus:ring-indigo-100 focus:border-indigo-500 outline-none text-center text-xl"
-                    placeholder="📝"
-                    disabled={isSubmitting || isReorderMode}
-                  />
+                  <label className="block text-sm font-semibold text-slate-700 mb-1.5">ไอคอน</label>
+                  <div className="relative">
+                    <div className="flex gap-2">
+                       <input
+                        type="text"
+                        value={formData.icon || ''}
+                        onChange={(e) => setFormData({...formData, icon: e.target.value})}
+                        className="w-full rounded-xl border border-slate-200 p-3 focus:ring-4 focus:ring-indigo-100 focus:border-indigo-500 outline-none text-center text-xl"
+                        placeholder="📝"
+                        disabled={isSubmitting || isReorderMode}
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowIconPicker(!showIconPicker)}
+                        className={`px-3 rounded-xl border transition-all ${showIconPicker ? 'bg-indigo-100 border-indigo-200 text-indigo-600' : 'bg-slate-50 border-slate-200 text-slate-500 hover:bg-slate-100'}`}
+                      >
+                         <Smile size={20} />
+                      </button>
+                    </div>
+
+                    {/* Icon Picker Popover */}
+                    {showIconPicker && (
+                      <div className="absolute top-full left-0 right-0 mt-2 p-3 bg-white rounded-xl shadow-xl border border-slate-200 z-30 max-h-60 overflow-y-auto">
+                        <div className="space-y-4">
+                          {ICON_SETS.map((set) => (
+                            <div key={set.title}>
+                              <h4 className="text-xs font-bold text-slate-400 mb-2 uppercase tracking-wider">{set.title}</h4>
+                              <div className="grid grid-cols-5 gap-2">
+                                {set.icons.map((icon) => (
+                                  <button
+                                    key={icon}
+                                    type="button"
+                                    onClick={() => {
+                                      setFormData({...formData, icon: icon});
+                                      setShowIconPicker(false);
+                                    }}
+                                    className="h-8 w-8 flex items-center justify-center text-lg rounded hover:bg-indigo-50 hover:scale-110 transition-all cursor-pointer"
+                                  >
+                                    {icon}
+                                  </button>
+                                ))}
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
                 </div>
                 <div>
                   <label className="block text-sm font-semibold text-slate-700 mb-1.5">สถานะ</label>
